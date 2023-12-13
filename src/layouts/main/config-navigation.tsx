@@ -84,6 +84,11 @@ export const navConfig = [
   //   ],
   // },
   {
+    title: 'Order',
+    icon: <Iconify icon="solar:file-bold-duotone" />,
+    path: paths.order,
+  },
+  {
     title: 'Docs',
     icon: <Iconify icon="solar:notebook-bold-duotone" />,
     path: paths.docs,

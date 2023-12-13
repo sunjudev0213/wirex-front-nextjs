@@ -81,4 +81,5 @@ export const paths = {
   page500: '/error/500',
   docs: 'https://docs.minimals.cc',
   home: '/',
+  order: '/order',
 };

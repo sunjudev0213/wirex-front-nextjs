@@ -22,8 +22,8 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 const OPTIONS = [
   {
-    label: 'Home',
-    linkTo: '/',
+    label: 'Verify Me',
+    linkTo: '/setup',
   },
   {
     label: 'Profile',
@@ -107,7 +107,18 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={() => handleClickItem(option.linkTo)}>
+            <MenuItem
+              key={option.label}
+              onClick={() => handleClickItem(option.linkTo)}
+              sx={
+                option.label === 'Verify Me'
+                  ? {
+                      fontWeight: 'fontWeightSemiBold',
+                      color: 'error.main',
+                    }
+                  : {}
+              }
+            >
               {option.label}
             </MenuItem>
           ))}
