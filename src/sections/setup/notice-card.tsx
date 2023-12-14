@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Stack, { StackProps } from '@mui/material/Stack';
 // theme
 import { bgGradient } from 'src/theme/css';
+import { Paper } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -18,19 +19,13 @@ export default function NoticeCard({ title, description, action, img, ...other }
   const theme = useTheme();
 
   return (
-    <Stack
+    <Paper
       flexDirection={{ xs: 'column', md: 'row' }}
       sx={{
-        ...bgGradient({
-          direction: '135deg',
-          startColor: alpha(theme.palette.primary.light, 0.2),
-          endColor: alpha(theme.palette.primary.main, 0.2),
-        }),
         height: { md: 1 },
         borderRadius: 1,
         position: 'relative',
-        color: 'primary.darker',
-        backgroundColor: 'common.white',
+        boxShadow: () => theme.customShadows.z20,
       }}
       {...other}
     >
@@ -77,6 +72,6 @@ export default function NoticeCard({ title, description, action, img, ...other }
           {img}
         </Stack>
       )}
-    </Stack>
+    </Paper>
   );
 }

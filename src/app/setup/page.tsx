@@ -1,5 +1,5 @@
 // sections
-import TwoView from 'src/sections/two/view';
+import VerifyView from 'src/sections/setup/view/verify-view';
 
 // ----------------------------------------------------------------------
 
@@ -8,5 +8,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <TwoView />;
+  return <VerifyView />;
 }

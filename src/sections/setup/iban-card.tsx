@@ -15,6 +15,7 @@ import {
   Grid,
   InputLabel,
   MenuItem,
+  Paper,
   Select,
   TextField,
 } from '@mui/material';
@@ -81,19 +82,13 @@ export default function IbanCard({
       .toUpperCase()}`;
 
   return (
-    <Stack
+    <Paper
       flexDirection={{ xs: 'column', md: 'row' }}
       sx={{
-        ...bgGradient({
-          direction: '135deg',
-          startColor: alpha(theme.palette.primary.light, 0.2),
-          endColor: alpha(theme.palette.primary.main, 0.2),
-        }),
         height: { md: 1 },
         borderRadius: 1,
         position: 'relative',
-        color: 'primary.darker',
-        backgroundColor: 'common.white',
+        boxShadow: () => theme.customShadows.z20,
       }}
       {...other}
     >
@@ -222,6 +217,6 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
           </DialogActions>
         </Dialog>
       </Stack>
-    </Stack>
+    </Paper>
   );
 }

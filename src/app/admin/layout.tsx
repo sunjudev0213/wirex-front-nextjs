@@ -1,7 +1,7 @@
 'use client';
 
 // auth
-import { AuthGuard } from 'src/auth/guard';
+import { RoleBasedGuard } from 'src/auth/guard';
 // components
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -13,8 +13,8 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   return (
-    <AuthGuard>
+    <RoleBasedGuard roles={['admin']} hasContent>
       <DashboardLayout>{children}</DashboardLayout>
-    </AuthGuard>
+    </RoleBasedGuard>
   );
 }
