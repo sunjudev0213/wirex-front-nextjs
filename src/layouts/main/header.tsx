@@ -17,7 +17,6 @@ import { bgBlur } from 'src/theme/css';
 import { paths } from 'src/routes/paths';
 // components
 import Logo from 'src/components/logo';
-import Label from 'src/components/label';
 //
 import { useAuthContext } from 'src/auth/hooks';
 import { HEADER } from '../config-layout';

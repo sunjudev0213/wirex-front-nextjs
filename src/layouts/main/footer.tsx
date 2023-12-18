@@ -38,7 +38,7 @@ const LINKS = [
   },
   {
     headline: 'Contact',
-    children: [{ name: 'support@minimals.cc', href: '#' }],
+    children: [{ name: 'support@centsaving.com', href: '#' }],
   },
 ];
 
@@ -65,7 +65,7 @@ export default function Footer() {
         <Typography variant="caption" component="div">
           © All rights reserved
           <br /> made by
-          <Link href="https://minimals.cc/"> minimals.cc </Link>
+          <Link href="https://centsaving.com/"> centsaving.com </Link>
         </Typography>
       </Container>
     </Box>

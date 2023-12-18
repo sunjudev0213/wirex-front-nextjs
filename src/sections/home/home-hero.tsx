@@ -203,21 +203,24 @@ export default function HomeHero() {
             duration: 20,
             repeat: Infinity,
           }}
+          style={{
+            lineHeight: 1.2,
+          }}
         >
-          Wirexapp
+          Centsaving
         </StyledTextGradient>
       </m.div>
 
       <Stack spacing={3} sx={{ textAlign: 'center' }}>
         <m.div variants={varFade().in}>
           <Typography variant="overline" sx={{ opacity: 0.4 }}>
-            by
+            Effortless saving for everyone
           </Typography>
         </m.div>
 
-        <Stack spacing={2} direction="row" justifyContent="center">
-          Wirex
-        </Stack>
+        {/* <Stack spacing={2} direction="row" justifyContent="center">
+          centsaving
+        </Stack> */}
       </Stack>
     </Stack>
   );

@@ -14,7 +14,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <GuestGuard>
-      <AuthClassicLayout title="Create account and start using Wirexapp">
+      <AuthClassicLayout title="Create account and start using Centsaving">
         {children}
       </AuthClassicLayout>
     </GuestGuard>

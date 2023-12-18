@@ -79,7 +79,7 @@ export const paths = {
   page403: '/error/403',
   page404: '/error/404',
   page500: '/error/500',
-  docs: 'https://docs.minimals.cc',
+  docs: 'https://docs.centsaving.com',
   home: '/',
   order: '/order',
 };

@@ -4,7 +4,7 @@ import { HomeView } from 'src/sections/home/view';
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Wirex Landing',
+  title: 'Home - Centsaving',
 };
 
 export default function HomePage() {
