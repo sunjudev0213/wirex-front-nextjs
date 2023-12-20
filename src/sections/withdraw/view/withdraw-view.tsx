@@ -6,11 +6,12 @@ import Typography from '@mui/material/Typography';
 // components
 import { useSettingsContext } from 'src/components/settings';
 import { Grid } from '@mui/material';
-import IbanCard from '../iban-card';
+import IbanCard from '../withdraw-card';
+import WithdrawWalletCard from '../withdraw-card';
 
 // ----------------------------------------------------------------------
 
-export default function OrderView() {
+export default function WithdrawView() {
   const settings = useSettingsContext();
   const bnkDta = [
     {
@@ -37,14 +38,22 @@ export default function OrderView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Typography variant="h4" textAlign="center">
-        Page : Order
+        Withdraw
       </Typography>
-      <Grid xs={12} md={5} lg={6} sx={{ my: 5, mx: 'auto' }} container>
-        <IbanCard
-          title="Bank Account Details"
-          description="Your current balance and IBAN."
-          banks={bnkDta}
-        />
+      <Typography
+        variant="subtitle1"
+        textAlign="center"
+        sx={{
+          opacity: 0.6,
+          fontWeight: 300,
+          fontSize: '0.8rem',
+          mt: 1,
+        }}
+      >
+        Request cETH Withdrawal
+      </Typography>
+      <Grid xs={12} md={6} sx={{ my: 5, mx: 'auto' }} container>
+        <WithdrawWalletCard title="" description="" banks={bnkDta} />
       </Grid>
     </Container>
   );

@@ -17,8 +17,10 @@ export default function VerifyView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
-      <Typography variant="h4"> Page : Setup </Typography>
-      <Grid xs={12} md={4} sx={{ my: 5, mx: 'auto' }} container>
+      <Typography variant="h4" textAlign="center">
+        Page : Setup
+      </Typography>
+      <Grid xs={12} md={4} sx={{ my: 5, mx: 'auto' }} justifyContent="center" container>
         <NoticeCard
           title="Start your KYC"
           description="Begin your Know Your Customer (KYC) procedure to verify your identity."
