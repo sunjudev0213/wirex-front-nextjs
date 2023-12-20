@@ -2,12 +2,22 @@
 import { useTheme } from '@mui/material/styles';
 import Stack, { StackProps } from '@mui/material/Stack';
 // components
-import { Button, Grid, InputAdornment, Paper, TextField } from '@mui/material';
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import AggregatorBox from 'src/components/box/AggregatorBox';
 import { ListItems, SingleItemBox } from 'src/components/box';
 import Image from 'src/components/image';
 import useCETHBalance from 'src/hooks/use-ceth-balance';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { formatAddress } from 'src/utils/format-address';
 
 // ----------------------------------------------------------------------
 
@@ -36,18 +46,24 @@ export default function WithdrawWalletCard({
   ...other
 }: Props) {
   const theme = useTheme();
+  const cETHbalance = useCETHBalance();
+  const { connect, connectors, error, isLoading } = useConnect();
+  const { isConnected, address } = useAccount();
+  const { disconnect } = useDisconnect();
 
   const [ethValue, setEthValue] = useState();
   const [maxEth, setMaxEth] = useState<number>();
-  const cETHbalance = useCETHBalance();
   const [selectedFirst, setSelectedFirst] = useState(true);
   const formatEth = (n) => (n % 1 !== 0 ? n.toFixed(Math.max(1, 4)) : n.toFixed(1)).toString();
 
   useEffect(() => {
-    if (cETHbalance) {
+    if (cETHbalance && isConnected) {
       setMaxEth(cETHbalance);
     }
-  }, [cETHbalance]);
+    if (cETHbalance && !isConnected) {
+      setMaxEth(0);
+    }
+  }, [cETHbalance, isConnected]);
 
   const numInputChange = (e) => {
     const { value } = e.target;
@@ -75,6 +91,8 @@ export default function WithdrawWalletCard({
   const setEthAsMax = () => {
     setEthValue(maxEth);
   };
+
+  const connector = connectors[0];
 
   const aggregateValues = [
     {
@@ -161,6 +179,9 @@ export default function WithdrawWalletCard({
     },
   ];
 
+  const getAddressAvatar = (address: string) =>
+    `https://api.dicebear.com/7.x/identicon/jpg?seed=${address}`;
+
   return (
     <Paper
       flexDirection={{ xs: 'column', md: 'row' }}
@@ -185,6 +206,47 @@ export default function WithdrawWalletCard({
           textAlign: { xs: 'center', md: 'left' },
         }}
       >
+        {isConnected && (
+          <Stack
+            spacing={2}
+            alignItems="center"
+            direction="row"
+            sx={{
+              width: '100%',
+              display: 'flex',
+              gap: 1,
+              justifyContent: 'space-between',
+              mb: 3,
+              mt: 1,
+            }}
+          >
+            <Stack>
+              <Typography variant="subtitle2">cETH Balance</Typography>
+              <Typography variant="h4">{maxEth || 0}</Typography>
+            </Stack>
+            <Button
+              direction="row"
+              variant="soft"
+              sx={{
+                alignItems: 'center',
+                backgroundColor: theme.palette.primary.dark,
+                display: 'flex',
+                gap: 1,
+                justifyContent: 'center',
+                borderRadius: 4,
+              }}
+              onClick={() => disconnect()}
+            >
+              <Typography variant="subtitle2">{formatAddress(address as string)}</Typography>
+              <Image
+                src={getAddressAvatar(address as string)}
+                borderRadius={40}
+                height={24}
+                width={24}
+              />
+            </Button>
+          </Stack>
+        )}
         <Stack
           spacing={2}
           direction="column"
@@ -259,16 +321,35 @@ export default function WithdrawWalletCard({
           </Stack>
         )}
 
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            console.log('clicked');
-          }}
-        >
-          Connect wallet
-        </Button>
+        {!isConnected ? (
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={!connector.ready}
+            key={connector.id}
+            sx={{ gap: 2 }}
+            onClick={() => connect({ connector })}
+          >
+            Connect wallet
+            {!connector.ready && <CircularProgress size={20} color="inherit" />}
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={!connector.ready}
+            key={connector.id}
+            sx={{ gap: 2 }}
+            onClick={() => {
+              alert(`Withdraw ${ethValue} ETH`);
+            }}
+          >
+            Withdraw
+            {!connector.ready && <CircularProgress size={20} color="inherit" />}
+          </Button>
+        )}
         <Stack width="100%" mt={2}>
           {txnDetails.map((item) => (
             <ListItems key={item.label} item={item} />

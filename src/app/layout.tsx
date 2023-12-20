@@ -1,3 +1,5 @@
+'use client';
+
 // scrollbar
 import 'simplebar-react/dist/simplebar.min.css';
 
@@ -15,6 +17,13 @@ import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsProvider, SettingsDrawer } from 'src/components/settings';
 // auth
 import { AuthProvider, AuthConsumer } from 'src/auth/context/jwt';
+// wagmi and wallet connect
+import { WagmiConfig, configureChains, createConfig, mainnet } from 'wagmi';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+
 // ----------------------------------------------------------------------
 
 export const metadata = {
@@ -59,28 +68,49 @@ type Props = {
 };
 
 export default function RootLayout({ children }: Props) {
+  const { chains, publicClient, webSocketPublicClient } = configureChains(
+    [mainnet],
+    [alchemyProvider({ apiKey: 'WcncLfqTHno3CRWAPQmrpmDx6sdKQPlX' }), publicProvider()]
+  );
+  const config = createConfig({
+    autoConnect: true,
+    connectors: [
+      new WalletConnectConnector({
+        chains,
+        options: {
+          projectId: '4c30262217378b4121e266c9e10cdbac',
+        },
+      }),
+      new MetaMaskConnector({ chains }),
+    ],
+    publicClient,
+    webSocketPublicClient,
+  });
+
   return (
     <html lang="en" className={primaryFont.className}>
       <body>
         <AuthProvider>
-          <SettingsProvider
-            defaultSettings={{
-              themeMode: 'light', // 'light' | 'dark'
-              themeDirection: 'ltr', //  'rtl' | 'ltr'
-              themeContrast: 'default', // 'default' | 'bold'
-              themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
-              themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
-              themeStretch: false,
-            }}
-          >
-            <ThemeProvider>
-              <MotionLazy>
-                <SettingsDrawer />
-                <ProgressBar />
-                <AuthConsumer>{children}</AuthConsumer>
-              </MotionLazy>
-            </ThemeProvider>
-          </SettingsProvider>
+          <WagmiConfig config={config}>
+            <SettingsProvider
+              defaultSettings={{
+                themeMode: 'light', // 'light' | 'dark'
+                themeDirection: 'ltr', //  'rtl' | 'ltr'
+                themeContrast: 'default', // 'default' | 'bold'
+                themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
+                themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+                themeStretch: false,
+              }}
+            >
+              <ThemeProvider>
+                <MotionLazy>
+                  <SettingsDrawer />
+                  <ProgressBar />
+                  <AuthConsumer>{children}</AuthConsumer>
+                </MotionLazy>
+              </ThemeProvider>
+            </SettingsProvider>
+          </WagmiConfig>
         </AuthProvider>{' '}
       </body>
     </html>
