@@ -85,12 +85,12 @@ export const navConfig = [
   // },
   {
     title: 'Order',
-    icon: <Iconify icon="solar:file-bold-duotone" />,
+    icon: <Iconify icon="lets-icons:order-duotone" />,
     path: paths.order,
   },
   {
-    title: 'Docs',
-    icon: <Iconify icon="solar:notebook-bold-duotone" />,
-    path: paths.docs,
+    title: 'Withdraw',
+    icon: <Iconify icon="uil:money-withdraw" />,
+    path: paths.withdraw,
   },
 ];

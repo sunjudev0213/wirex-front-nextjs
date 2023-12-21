@@ -82,4 +82,5 @@ export const paths = {
   docs: 'https://docs.centsaving.com',
   home: '/',
   order: '/order',
+  withdraw: '/withdraw',
 };

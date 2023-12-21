@@ -22,6 +22,7 @@ export interface SingleItemBoxProps {
   src?: string;
   label: string;
   href?: string;
+  leftBox?: React.ReactNode;
 }
 
 export interface ListItemsProps {

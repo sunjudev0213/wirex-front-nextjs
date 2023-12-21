@@ -4,9 +4,8 @@ import Label from '../label';
 import { SingleItemBoxProps } from './types';
 import Iconify from '../iconify/iconify';
 
-const SingleItemBox: React.FC<SingleItemBoxProps> = ({ value, src, label, href }) => (
+const SingleItemBox: React.FC<SingleItemBoxProps> = ({ value, src, label, href, leftBox }) => (
   <Label
-    direction="row"
     alignItems="center"
     spacing={2}
     sx={{
@@ -17,10 +16,12 @@ const SingleItemBox: React.FC<SingleItemBoxProps> = ({ value, src, label, href }
       height: '100%',
       color: 'text.primary',
       opacity: 0.8,
+      flexDirection: 'row',
     }}
   >
     <Stack direction="row" alignItems="center" spacing={2} sx={{ justifyContent: 'space-between' }}>
-      <Image src={src} alt={label} width={40} height={40} />
+      {leftBox && leftBox}
+      {!leftBox && <Image src={src} alt={label} width={40} height={40} />}
       <Stack alignItems="flex-start">
         <Typography variant="body1">{label}</Typography>
         {value === null && href && (
