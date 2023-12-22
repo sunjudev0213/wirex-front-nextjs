@@ -33,3 +33,7 @@ export const MAPBOX_API = process.env.NEXT_PUBLIC_MAPBOX_API;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
 export const PATH_AFTER_LOGIN = paths.dashboard.root; // as '/dashboard'
+
+// Klaviyo
+export const KLAVIYO_LIST_ID = process.env.NEXT_PUBLIC_KLAVIYO_LIST_ID;
+export const KLAVIYO_API_KEY = process.env.KLAVIYO_PRIVATE_API_KEY;
